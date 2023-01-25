@@ -15,7 +15,7 @@ interface ProdutoInterface {
   teclado: boolean;
 }
 
-function preencherDados(dados: ProdutoInterface) {
+/* function preencherDados(dados: ProdutoInterface) {
   document.body.innerHTML += `
   <div>
     <h2>Nome: ${dados.nome}</h2>
@@ -24,13 +24,13 @@ function preencherDados(dados: ProdutoInterface) {
 </div>
   `;
 }
-
+*/
 const computador: Produto = {
   nome: 'Computador',
   preco: 2000,
   teclado: true,
 };
-
+/*
 preencherDados({
   nome: 'Computador',
   preco: 2000,
@@ -42,6 +42,7 @@ preencherDados({
   preco: 2500,
   teclado: false,
 });
+*/
 
 type Categorias = 'design' | 'código' | 'descod';
 
@@ -57,7 +58,7 @@ pintarCategoria('design');
 async function fetchProduct() {
   const response = await fetch('https://api.origamid.dev/json/notebook.json');
   const data = await response.json();
-  showProduct(data);
+  // showProduct(data);
 }
 
 fetchProduct();
@@ -102,4 +103,43 @@ function loadAkira(data: Array<Number | String>) {
   return data.filter((n) => n > 10 || n === 'akira');
 }
 
-console.log(loadAkira(a));
+// console.log(loadAkira(a));
+
+async function fetchCursos() {
+  const response = await fetch('https://api.origamid.dev/json/cursos.json');
+  const data = await response.json();
+  mostrarCursos(data);
+}
+
+fetchCursos();
+
+interface Curso {
+  nome: string;
+  horas: number;
+  aulas: number;
+  gratuito: boolean;
+  tags: string[];
+  idAulas: number[];
+  nivel: 'iniciante' | 'avancado';
+}
+
+function mostrarCursos(data: Curso[]) {
+  data.forEach((curso) => {
+    let color;
+    if (curso.nivel === 'iniciante') {
+      color = 'blue';
+    } else if (curso.nivel === 'avancado') {
+      color = 'red';
+    }
+    document.body.innerHTML += `
+    <div>
+      <p style="color: ${color};">${curso.nome}</p> 
+      <p>${curso.horas}</p> 
+      <p>${curso.aulas}</p> 
+      <p>Tipo : ${curso.gratuito}</p> 
+      <p>${curso.tags.join(', ')}</p> 
+      <p>${curso.nivel}</p> 
+    </div>
+    `;
+  });
+}

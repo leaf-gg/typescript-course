@@ -1,8 +1,8 @@
 "use strict";
 let total = 20;
 total = '30';
-function preencherDados(dados) {
-    document.body.innerHTML += `
+/* function preencherDados(dados: ProdutoInterface) {
+  document.body.innerHTML += `
   <div>
     <h2>Nome: ${dados.nome}</h2>
     <p>Preço: ${dados.preco}</p>
@@ -10,21 +10,12 @@ function preencherDados(dados) {
 </div>
   `;
 }
+*/
 const computador = {
     nome: 'Computador',
     preco: 2000,
     teclado: true,
 };
-preencherDados({
-    nome: 'Computador',
-    preco: 2000,
-    teclado: true,
-});
-preencherDados({
-    nome: 'Notebook',
-    preco: 2500,
-    teclado: false,
-});
 function pintarCategoria(categoria) {
     console.log('categoria', categoria);
     if (categoria === 'design') {
@@ -35,7 +26,7 @@ pintarCategoria('design');
 async function fetchProduct() {
     const response = await fetch('https://api.origamid.dev/json/notebook.json');
     const data = await response.json();
-    showProduct(data);
+    // showProduct(data);
 }
 fetchProduct();
 function showProduct(data) {
@@ -60,4 +51,31 @@ const a = [10, 20, 'akira'];
 function loadAkira(data) {
     return data.filter((n) => n > 10 || n === 'akira');
 }
-console.log(loadAkira(a));
+// console.log(loadAkira(a));
+async function fetchCursos() {
+    const response = await fetch('https://api.origamid.dev/json/cursos.json');
+    const data = await response.json();
+    mostrarCursos(data);
+}
+fetchCursos();
+function mostrarCursos(data) {
+    data.forEach((curso) => {
+        let color;
+        if (curso.nivel === 'iniciante') {
+            color = 'blue';
+        }
+        else if (curso.nivel === 'avancado') {
+            color = 'red';
+        }
+        document.body.innerHTML += `
+    <div>
+      <p style="color: ${color};">${curso.nome}</p> 
+      <p>${curso.horas}</p> 
+      <p>${curso.aulas}</p> 
+      <p>Tipo : ${curso.gratuito}</p> 
+      <p>${curso.tags.join(', ')}</p> 
+      <p>${curso.nivel}</p> 
+    </div>
+    `;
+    });
+}
