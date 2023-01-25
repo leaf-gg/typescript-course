@@ -44,7 +44,7 @@ function showProduct(data) {
       <p>${data.nome}</p>
       <p>${data.preco}</p>
       <p>${data.descricao}</p>
-      <p>${data.garantia}</p>
+      <p>${data.garantia} anos</p>
       <p>${data.seguroAcidentes}</p>
       <p>${data.empresaFabricante.nome}</p>
       <p>${data.empresaFabricante.fundacao}</p>
@@ -56,3 +56,8 @@ function showProduct(data) {
     </div>
   `;
 }
+const a = [10, 20, 'akira'];
+function loadAkira(data) {
+    return data.filter((n) => n > 10 || n === 'akira');
+}
+console.log(loadAkira(a));
