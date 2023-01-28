@@ -1,145 +1,77 @@
-type NumberOrString = string | number;
-
-let total: NumberOrString = 20;
-total = '30';
-
-type Produto = {
+class Produto {
   nome: string;
-  preco: number;
-  teclado: boolean;
-};
 
-interface ProdutoInterface {
-  nome: string;
-  preco: number;
-  teclado: boolean;
+  constructor(nome: string) {
+    this.nome = nome;
+  }
+
+  /*
+  precoReal() {
+    return `R$ ${this.preco}`;
+  }
+  */
 }
 
-/* function preencherDados(dados: ProdutoInterface) {
-  document.body.innerHTML += `
-  <div>
-    <h2>Nome: ${dados.nome}</h2>
-    <p>Preço: ${dados.preco}</p>
-    <p>Inclui teclado: ${dados.teclado ? 'sim' : 'não'} </p>
-</div>
-  `;
-}
-*/
-const computador: Produto = {
-  nome: 'Computador',
-  preco: 2000,
-  teclado: true,
-};
-/*
-preencherDados({
-  nome: 'Computador',
-  preco: 2000,
-  teclado: true,
-});
+const livro = new Produto('Neuromancer');
 
-preencherDados({
-  nome: 'Notebook',
-  preco: 2500,
-  teclado: false,
-});
-*/
+console.log(livro instanceof Array);
 
-type Categorias = 'design' | 'código' | 'descod';
-
-function pintarCategoria(categoria: Categorias) {
-  console.log('categoria', categoria);
-  if (categoria === 'design') {
-    console.log('Pintar vermelho');
+class Livro extends Produto {
+  autor: string;
+  constructor(nome: string, autor: string) {
+    super(nome);
+    this.autor = autor;
   }
 }
 
-pintarCategoria('design');
-
-async function fetchProduct() {
-  const response = await fetch('https://api.origamid.dev/json/notebook.json');
-  const data = await response.json();
-  // showProduct(data);
+class Jogo extends Produto {
+  jogadores: number;
+  constructor(nome: string, jogadores: number) {
+    super(nome);
+    this.jogadores = jogadores;
+  }
 }
 
-fetchProduct();
+function buscarProduto(busca: string) {
+  if (busca === 'Akira') {
+    return new Livro(' Sega Genesis', 'Katsuhiro Otomo');
+  }
+  if (busca === 'Dark Souls') {
+    return new Jogo('Dark Souls', 1);
+  }
+  return null;
+}
 
-interface Empresa {
+const produto = buscarProduto('Dark Souls');
+
+if (produto instanceof Livro) {
+  console.log(produto.autor);
+}
+
+/* 
+if (produto instanceof Jogo) {
+  console.log(produto.jogadores);
+}
+*/
+
+if (produto instanceof Produto) {
+  console.log(produto.nome);
+}
+
+interface Carro {
   nome: string;
-  fundacao: number;
-  pais: string;
-}
-interface DataApi {
-  nome: string;
-  preco: number;
-  descricao: string;
-  garantia: string;
-  seguroAcidentes: boolean;
-  empresaFabricante: Empresa;
-  empresaMontadora: Empresa;
 }
 
-function showProduct(data: DataApi) {
-  document.body.innerHTML = `
-    <div>
-      <p>${data.nome}</p>
-      <p>${data.preco}</p>
-      <p>${data.descricao}</p>
-      <p>${data.garantia} anos</p>
-      <p>${data.seguroAcidentes}</p>
-      <p>${data.empresaFabricante.nome}</p>
-      <p>${data.empresaFabricante.fundacao}</p>
-      <p>${data.empresaFabricante.pais}</p>
-      <p>${data.empresaMontadora.nome}</p>
-      <p>${data.empresaMontadora.fundacao}</p>
-      <p>${data.empresaMontadora.pais}</p>
-      
-    </div>
-  `;
+const honda: Carro = {
+  nome: 'Honda',
+};
+console.log(honda);
+
+const novoLink = document.getElementById('origamid');
+
+if (novoLink instanceof HTMLAnchorElement) {
+  // novoLink.href = 'https://www.origamid.com';
+  novoLink.href = novoLink.href.replace('http://', 'https://');
 }
 
-const a = [10, 20, 'akira'];
-
-function loadAkira(data: Array<Number | String>) {
-  return data.filter((n) => n > 10 || n === 'akira');
-}
-
-// console.log(loadAkira(a));
-
-async function fetchCursos() {
-  const response = await fetch('https://api.origamid.dev/json/cursos.json');
-  const data = await response.json();
-  mostrarCursos(data);
-}
-
-fetchCursos();
-
-interface Curso {
-  nome: string;
-  horas: number;
-  aulas: number;
-  gratuito: boolean;
-  tags: string[];
-  idAulas: number[];
-  nivel: 'iniciante' | 'avancado';
-}
-
-function mostrarCursos(data: Curso[]) {
-  data.forEach((curso) => {
-    let color;
-    if (curso.nivel === 'iniciante') {
-      color = 'blue';
-    } else if (curso.nivel === 'avancado') {
-      color = 'red';
-    }
-    document.body.innerHTML += `
-    <div>
-      <p style="color: ${color};">${curso.nome}</p> 
-      <p>${curso.horas}</p> 
-      <p>${curso.aulas}</p> 
-      <p>Tipo : ${curso.gratuito}</p> 
-      <p>${curso.tags.join(', ')}</p> 
-      <p>${curso.nivel}</p> 
-    </div>
-    `;
-  });
-}
+console.log(novoLink, 'linknovo');
