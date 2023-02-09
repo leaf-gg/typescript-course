@@ -52,3 +52,11 @@ if (novoLink instanceof HTMLAnchorElement) {
     novoLink.href = novoLink.href.replace('http://', 'https://');
 }
 console.log(novoLink, 'linknovo');
+const links = document.querySelectorAll('.link');
+links.forEach((link) => {
+    if (link instanceof HTMLAnchorElement || link instanceof HTMLButtonElement) {
+        link.style.border = '1px solid blue';
+        link.style.color = 'blue';
+        link.style.backgroundColor = 'red';
+    }
+});
