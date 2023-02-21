@@ -1,87 +1,28 @@
-class Produto {
-  nome: string;
+// button
 
-  constructor(nome: string) {
-    this.nome = nome;
-  }
+const button = document.querySelector('button');
 
-  /*
-  precoReal() {
-    return `R$ ${this.preco}`;
-  }
-  */
+function handleClick(event: MouseEvent) {
+  console.log(event, 'event');
 }
 
-const livro = new Produto('Neuromancer');
+button?.addEventListener('click', handleClick);
 
-console.log(livro instanceof Array);
+// scroll
 
-class Livro extends Produto {
-  autor: string;
-  constructor(nome: string, autor: string) {
-    super(nome);
-    this.autor = autor;
-  }
+function handleScroll(event: Event) {
+  console.log(event);
 }
+window.addEventListener('scroll', handleScroll);
 
-class Jogo extends Produto {
-  jogadores: number;
-  constructor(nome: string, jogadores: number) {
-    super(nome);
-    this.jogadores = jogadores;
+function enableMenu(event: Event) {
+  if (event instanceof MouseEvent) {
+    console.log(event.pageX);
+  }
+  if (event instanceof TouchEvent) {
+    console.log(event.touches[0].pageX);
   }
 }
-
-function buscarProduto(busca: string) {
-  if (busca === 'Akira') {
-    return new Livro(' Sega Genesis', 'Katsuhiro Otomo');
-  }
-  if (busca === 'Dark Souls') {
-    return new Jogo('Dark Souls', 1);
-  }
-  return null;
-}
-
-const produto = buscarProduto('Dark Souls');
-
-if (produto instanceof Livro) {
-  console.log(produto.autor);
-}
-
-/* 
-if (produto instanceof Jogo) {
-  console.log(produto.jogadores);
-}
-*/
-
-if (produto instanceof Produto) {
-  console.log(produto.nome);
-}
-
-interface Carro {
-  nome: string;
-}
-
-const honda: Carro = {
-  nome: 'Honda',
-};
-console.log(honda);
-
-const novoLink = document.getElementById('origamid');
-
-if (novoLink instanceof HTMLAnchorElement) {
-  // novoLink.href = 'https://www.origamid.com';
-  novoLink.href = novoLink.href.replace('http://', 'https://');
-}
-
-console.log(novoLink, 'linknovo');
-
-const links = document.querySelectorAll('.link');
-
-links.forEach((link) => {
-  if (link instanceof HTMLAnchorElement || link instanceof HTMLButtonElement) {
-    link.style.border = '1px solid blue';
-    link.style.color = 'blue';
-    link.style.backgroundColor = 'red';
-  }
-});
+document.documentElement.addEventListener('mousedown', enableMenu);
+document.documentElement.addEventListener('touchstart', enableMenu);
+window.addEventListener('keydown', enableMenu);
