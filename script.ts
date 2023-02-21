@@ -67,4 +67,4 @@ function handleMenu(event: PointerEvent) {
   }
 }
 
-menuState?.addEventListener('click', handleMenu);
+menuState?.addEventListener('pointerdown', handleMenu);
