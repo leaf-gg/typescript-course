@@ -37,12 +37,34 @@ function handleClick(this: HTMLButtonElement, event: MouseEvent) {
 }
 
 
-*/
 const button = document.querySelector('button');
-function handleClick(event) {
-    const el = event.currentTarget;
-    if (el instanceof HTMLElement) {
-        console.log(el.innerText);
+function handleClick(event: MouseEvent) {
+  const el = event.currentTarget;
+  if (el instanceof HTMLElement) {
+    console.log(el.innerText);
+  }
+}
+
+button?.addEventListener('click', handleClick);
+
+*/
+const menuState = document.getElementById('btn-mobile');
+console.log(menuState);
+function handleMenu(event) {
+    const button = event.currentTarget;
+    const nav = document.getElementById('nav');
+    if (button instanceof HTMLElement && nav) {
+        const active = nav.classList.contains('active');
+        if (active) {
+            nav.classList.remove('active');
+            button.setAttribute('aria-expanded', 'false');
+            button.setAttribute('aria-label', 'Abrir Menu');
+        }
+        else {
+            nav.classList.add('active');
+            button.setAttribute('aria-expanded', 'true');
+            button.setAttribute('aria-label', 'Fechar Menu');
+        }
     }
 }
-button?.addEventListener('click', handleClick);
+menuState?.addEventListener('click', handleMenu);
