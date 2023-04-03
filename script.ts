@@ -68,3 +68,15 @@ function handleMenu(event: PointerEvent) {
 }
 
 menuState?.addEventListener('pointerdown', handleMenu);
+
+function arredondaNum(a: string): string;
+function arredondaNum(a: number): number;
+function arredondaNum(a: number | string) {
+  if (typeof a === 'string') {
+    return Math.ceil(Number(a)).toString();
+  } else if (typeof a === 'number') {
+    return Math.ceil(a);
+  }
+}
+
+console.log('arredondaNum(5.2)', arredondaNum('2.2'));
