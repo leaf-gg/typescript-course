@@ -48,35 +48,76 @@ button?.addEventListener('click', handleClick);
 
 */
 
-const menuState = document.getElementById('btn-mobile');
-console.log(menuState);
-function handleMenu(event: PointerEvent) {
-  const button = event.currentTarget;
-  const nav = document.getElementById('nav');
-  if (button instanceof HTMLElement && nav) {
-    const active = nav.classList.contains('active');
-    if (active) {
-      nav.classList.remove('active');
-      button.setAttribute('aria-expanded', 'false');
-      button.setAttribute('aria-label', 'Abrir Menu');
-    } else {
-      nav.classList.add('active');
-      button.setAttribute('aria-expanded', 'true');
-      button.setAttribute('aria-label', 'Fechar Menu');
-    }
+// const menuState = document.getElementById('btn-mobile');
+// console.log(menuState);
+// function handleMenu(event: PointerEvent) {
+//   const button = event.currentTarget;
+//   const nav = document.getElementById('nav');
+//   if (button instanceof HTMLElement && nav) {
+//     const active = nav.classList.contains('active');
+//     if (active) {
+//       nav.classList.remove('active');
+//       button.setAttribute('aria-expanded', 'false');
+//       button.setAttribute('aria-label', 'Abrir Menu');
+//     } else {
+//       nav.classList.add('active');
+//       button.setAttribute('aria-expanded', 'true');
+//       button.setAttribute('aria-label', 'Fechar Menu');
+//     }
+//   }
+// }
+
+// menuState?.addEventListener('pointerdown', handleMenu);
+
+// function arredondaNum(a: string): string;
+// function arredondaNum(a: number): number;
+// function arredondaNum(a: number | string) {
+//   if (typeof a === 'string') {
+//     return Math.ceil(Number(a)).toString();
+//   } else if (typeof a === 'number') {
+//     return Math.ceil(a);
+//   }
+// }
+
+// console.log('arredondaNum(5.2)', arredondaNum('2.2'));
+
+async function fetchCursos() {
+  const response = await fetch('https://api.origamid.dev/json/cursos.json');
+  const json = await response.json();
+  handleCursos(json);
+}
+fetchCursos();
+
+interface Curso {
+  nome: string;
+  horas: number;
+  tags: string[];
+}
+
+function isCurso(value: unknown): value is Curso {
+  if (
+    value &&
+    typeof value === 'object' &&
+    'nome' in value &&
+    'horas' in value &&
+    'tags' in value
+  ) {
+    return true;
+  } else {
+    return false;
   }
 }
 
-menuState?.addEventListener('pointerdown', handleMenu);
-
-function arredondaNum(a: string): string;
-function arredondaNum(a: number): number;
-function arredondaNum(a: number | string) {
-  if (typeof a === 'string') {
-    return Math.ceil(Number(a)).toString();
-  } else if (typeof a === 'number') {
-    return Math.ceil(a);
+function handleCursos(data: unknown) {
+  if (Array.isArray(data)) {
+    data.filter(isCurso).forEach((item) => {
+      document.body.innerHTML += `
+        <p>Nome: ${item.nome}</p>
+        <p>Horas: ${item.horas}</p>
+        <p>Tags: ${item.tags.join(', ')}</p>
+      `;
+    });
+  } else {
+    return false;
   }
 }
-
-console.log('arredondaNum(5.2)', arredondaNum('2.2'));
