@@ -1,4 +1,4 @@
-import Slide from './slide.js';
+import Slide from './Slide.js';
 const container = document.getElementById('slide');
 const elements = document.getElementById('slide-elements');
 const controls = document.getElementById('slide-controls');
